@@ -1,0 +1,21 @@
+
+services:
+  backend:
+    build:
+      context: ./shoestop-backend
+    container_name: shoestop-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./shoestop-backend/.env
+
+  frontend:
+    build:
+      context: ./shoestop-frontend
+      args:
+        VITE_API_URL: http://localhost:5000
+    container_name: shoestop-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
